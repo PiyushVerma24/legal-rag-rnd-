@@ -10,12 +10,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        spiritual: {
-          primary: '#8B4789',
-          secondary: '#D4A574',
-          accent: '#6B9080'
+        // Legal theme colors - professional blue palette
+        legal: {
+          primary: '#3b82f6', // Blue
+          secondary: '#1e3a8a', // Navy
+          accent: '#d4af37', // Gold
+          accentHover: '#b8941f'
         },
-        // New dark theme colors inspired by provided design
+        // Dark theme optimized for legal content
         dark: {
           bg: {
             primary: '#1E1E1E',
@@ -33,9 +35,11 @@ export default {
             muted: '#808080'
           },
           accent: {
-            orange: '#E87D5F',
-            orangeHover: '#D97757',
-            pink: '#E06C75'
+            orange: '#3b82f6', // Changed from orange to blue for legal theme
+            orangeHover: '#2563eb',
+            pink: '#60a5fa', // Light blue instead of pink
+            blue: '#3b82f6',
+            gold: '#d4af37'
           }
         }
       }

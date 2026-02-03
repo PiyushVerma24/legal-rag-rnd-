@@ -7,19 +7,19 @@ export default function AuthPage() {
   const navigate = useNavigate();
 
   const testUsers = [
-    { email: 'admin@heartfulness.org', name: 'Admin', role: 'Administrator', icon: '👨‍💼' },
-    { email: 'preceptor1@heartfulness.org', name: 'Adv Girish Shrivastav', role: 'Preceptor', icon: '🧘‍♂️' },
-    { email: 'preceptor2@heartfulness.org', name: 'Anchal Shrivastava', role: 'Preceptor', icon: '🧘‍♀️' },
-    { email: 'preceptor3@heartfulness.org', name: 'Krishnakant Shrivastava', role: 'Preceptor', icon: '🧘‍♂️' }
+    { email: 'admin@legalrnd.com', name: 'Admin', role: 'Administrator', icon: '👨‍💼' },
+    { email: 'lawyer1@legalrnd.com', name: 'Adv. Rajesh Kumar', role: 'Lawyer', icon: '⚖️' },
+    { email: 'lawyer2@legalrnd.com', name: 'Adv. Priya Sharma', role: 'Lawyer', icon: '⚖️' },
+    { email: 'lawyer3@legalrnd.com', name: 'Adv. Amit Verma', role: 'Lawyer', icon: '⚖️' }
   ];
 
   const handleQuickLogin = (email: string, name: string) => {
     setSelectedUser(email);
-    toast.success(`Welcome ${name}! 🙏`);
+    toast.success(`Welcome ${name}! ⚖️`);
 
     // Auto-navigate after a brief moment
     setTimeout(() => {
-      if (email === 'admin@heartfulness.org') {
+      if (email === 'admin@legalrnd.com') {
         navigate('/admin');
       } else {
         navigate('/chat');
@@ -28,15 +28,14 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-purple-50 via-white to-purple-50">
-      <div className="max-w-lg w-full spiritual-card p-8">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <div className="max-w-lg w-full bg-white rounded-xl shadow-xl border border-blue-100 p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-purple-800 mb-2 flex items-center justify-center gap-2">
-            Heartfulness
-            <img src="/hfn-logo-new.jpg" alt="Logo" className="h-10 w-10 rounded-full object-cover" />
+          <h1 className="text-3xl font-bold text-blue-900 mb-2 flex items-center justify-center gap-2">
+            ⚖️ Legal RAG R&D
           </h1>
-          <p className="text-gray-600">Spiritual Learning System</p>
-          <p className="text-xs text-purple-600 mt-2">Quick Login for Testing</p>
+          <p className="text-gray-600">Legal Research & Analysis System</p>
+          <p className="text-xs text-blue-600 mt-2">Quick Login for Testing</p>
         </div>
 
         <div className="space-y-3">
@@ -49,8 +48,8 @@ export default function AuthPage() {
               className={`
                 flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all
                 ${selectedUser === user.email
-                  ? 'border-purple-500 bg-purple-50 shadow-md'
-                  : 'border-purple-200 hover:border-purple-400 hover:bg-purple-50/50'
+                  ? 'border-blue-500 bg-blue-50 shadow-md'
+                  : 'border-blue-200 hover:border-blue-400 hover:bg-blue-50/50'
                 }
               `}
             >
@@ -59,7 +58,7 @@ export default function AuthPage() {
                 name="user"
                 checked={selectedUser === user.email}
                 onChange={() => { }}
-                className="w-4 h-4 text-purple-600 focus:ring-purple-500"
+                className="w-4 h-4 text-blue-600 focus:ring-blue-500"
               />
 
               <div className="flex items-center gap-3 flex-1">
@@ -68,7 +67,7 @@ export default function AuthPage() {
                   <p className="font-semibold text-gray-900">{user.name}</p>
                   <p className="text-xs text-gray-600">{user.email}</p>
                 </div>
-                <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
+                <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">
                   {user.role}
                 </span>
               </div>
@@ -76,9 +75,9 @@ export default function AuthPage() {
           ))}
         </div>
 
-        <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-          <p className="text-xs text-purple-800 font-medium mb-1">💡 Quick Login Enabled</p>
-          <p className="text-xs text-purple-700">
+        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+          <p className="text-xs text-blue-800 font-medium mb-1">💡 Quick Login Enabled</p>
+          <p className="text-xs text-blue-700">
             Click any user to instantly login and navigate to their dashboard
           </p>
         </div>
