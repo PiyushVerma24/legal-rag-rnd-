@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
-import { BookOpen, X, ExternalLink } from 'lucide-react';
+import { BookOpen, X, ExternalLink, Scale, AlertTriangle } from 'lucide-react';
+import { generateLegalDatabaseLinks, isValidCitationFormat } from '@/utils/legal-link-generator';
 
 interface Citation {
   document_id: string;
@@ -15,6 +16,11 @@ interface Citation {
   file_url?: string;
   file_type?: string;
   file_path?: string;
+
+  // Legal-specific fields
+  case_number?: string;
+  citation?: string;
+  court_name?: string;
 }
 
 interface SourceCitationProps {
@@ -83,7 +89,7 @@ export default function SourceCitation({ citations }: SourceCitationProps) {
                     {group.document_title}
                   </p>
                   <p className="text-xs text-dark-text-secondary">
-                    by {group.master_name} • {group.chunks.length} {group.chunks.length === 1 ? 'passage' : 'passages'}
+                    {group.master_name} • {group.chunks.length} {group.chunks.length === 1 ? 'passage' : 'passages'}
                   </p>
                 </div>
               </div>
@@ -138,13 +144,70 @@ export default function SourceCitation({ citations }: SourceCitationProps) {
                   </h3>
                   <div className="flex flex-wrap gap-2 text-sm text-dark-text-secondary">
                     <span className="flex items-center gap-1">
-                      <BookOpen className="h-3 w-3" />
+                      <Scale className="h-3 w-3" />
                       {selectedCitation.master_name}
                     </span>
                     {selectedCitation.page_number && (
                       <span className="bg-dark-bg-tertiary text-dark-accent-orange px-2 py-0.5 rounded text-xs font-medium">Page {selectedCitation.page_number}</span>
                     )}
                   </div>
+
+                  {/* Legal Metadata */}
+                  {(selectedCitation.case_number || selectedCitation.citation || selectedCitation.court_name) && (
+                    <div className="mt-3 pt-3 border-t border-dark-border-primary space-y-1.5">
+                      {selectedCitation.case_number && (
+                        <div className="flex items-start gap-2 text-xs">
+                          <span className="text-dark-text-muted font-medium min-w-[80px]">Case No:</span>
+                          <span className="text-dark-text-secondary">{selectedCitation.case_number}</span>
+                        </div>
+                      )}
+                      {selectedCitation.citation && (
+                        <div className="flex items-start gap-2 text-xs">
+                          <span className="text-dark-text-muted font-medium min-w-[80px]">Citation:</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-dark-text-secondary font-mono">{selectedCitation.citation}</span>
+                            {!isValidCitationFormat(selectedCitation.citation) && (
+                              <span className="flex items-center gap-1 text-amber-500 text-xs">
+                                <AlertTriangle className="h-3 w-3" />
+                                Verify
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      {selectedCitation.court_name && (
+                        <div className="flex items-start gap-2 text-xs">
+                          <span className="text-dark-text-muted font-medium min-w-[80px]">Court:</span>
+                          <span className="text-dark-text-secondary">{selectedCitation.court_name}</span>
+                        </div>
+                      )}
+
+                      {/* Legal Database Links */}
+                      {selectedCitation.citation && (
+                        <div className="mt-3 pt-2 border-t border-dark-border-primary">
+                          <p className="text-xs text-dark-text-muted font-medium mb-2">Search in Legal Databases:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {generateLegalDatabaseLinks(selectedCitation.citation, selectedCitation.document_title).map((link) => (
+                              <a
+                                key={link.name}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 px-2 py-1 bg-dark-bg-tertiary hover:bg-dark-bg-primary text-dark-text-secondary hover:text-dark-accent-orange text-xs rounded border border-dark-border-primary transition"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                                {link.name}
+                                {link.isFree && <span className="text-green-500 ml-1">•</span>}
+                              </a>
+                            ))}
+                          </div>
+                          <p className="text-xs text-dark-text-muted mt-2 italic">
+                            • Green dot indicates free access
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={() => setSelectedCitation(null)}
