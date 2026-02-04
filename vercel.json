@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "heartfulness-wisdom",
+  "name": "legal-rag-rnd",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",

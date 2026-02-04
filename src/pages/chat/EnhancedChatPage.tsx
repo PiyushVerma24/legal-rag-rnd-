@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import hfnLogo from '@/public/hfn-logo-new.jpg';
 import { useNavigate } from 'react-router-dom';
 import { RAGQueryService } from '@/services/ragQueryService';
 import { ChatHistoryService, ChatMessage } from '@/services/chatHistoryService';
