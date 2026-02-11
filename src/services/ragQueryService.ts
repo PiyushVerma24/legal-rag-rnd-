@@ -658,7 +658,7 @@ Create a ${needsSimple ? 'comprehensive yet simple, well-structured' : 'thorough
       };
 
 
-      const { data, error } = await supabase.from('legalrnd_ai_usage_log').insert(logEntry);
+      const { error } = await supabase.from('legalrnd_ai_usage_log').insert(logEntry);
 
       if (error) {
         console.error('❌ Failed to insert AI usage log:', error.message);
